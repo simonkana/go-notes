@@ -18,3 +18,17 @@ sqlite3 notes.db < internal/db/schema.sql
 # Start the server
 go run ./cmd/server
 ```
+
+Dependencies:
+
+- runtime:
+
+  - Go (you can check if installed with the `go version` command): `brew install go`
+
+<br/>
+
+- development:
+
+  - Air for hot-reloading: `go install github.com/air-verse/air@latest`
+
+  - Tailwind CLI: `npm install tailwindcss @tailwindcss/cli`
