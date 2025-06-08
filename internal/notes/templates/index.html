@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-100">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,21 +10,21 @@
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>"
     />
+    <link href="/static/css/main.css" rel="stylesheet" />
 
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script src="https://unpkg.com/alpinejs" defer></script>
   </head>
 
   <body>
     <div class="max-w-xl mx-auto py-8">
-      <h1 class="text-2xl font-bold mb-4">📝 My Notes</h1>
+      <h1 class="text-2xl font-bold mb-4">📝 Notes</h1>
 
       <form method="post" action="/create" class="space-y-2">
         <input
           name="title"
           placeholder="Title"
-          class="w-full border p-2 rounded {{if .Errors.title}}border-red-500{{end}}"
+          class="w-full p-3 rounded-xl bg-gray-100"
           value="{{.Title}}"
         />
         {{if .Errors.title}}
@@ -33,25 +33,29 @@
         <textarea
           name="content"
           placeholder="Content"
-          class="w-full border p-2 rounded {{if .Errors.content}}border-red-500{{end}}"
+          class="w-full p-3 rounded-xl bg-gray-100"
         >
 {{.Content}}</textarea
         >
         {{if .Errors.content}}
         <div class="text-red-500 text-sm">{{.Errors.content}}</div>
         {{end}}
-        <button class="bg-blue-500 text-white px-4 py-2 rounded">
+        <button
+          class="bg-blue-500 hover:bg-blue-600 cursor-pointer text-white px-4.5 py-2.5 rounded-xl"
+        >
           Add Note
         </button>
       </form>
 
       <div class="mt-6 space-y-2">
         {{range .Notes}}
-        <div class="p-4 bg-white rounded shadow">
+        <div
+          class="p-4 bg-white rounded-xl border-2 border-gray-100 shadow-gray-100 shadow-lg"
+        >
           <h2 class="font-bold">{{.Title}}</h2>
           <p>{{.Content}}</p>
           <form method="post" action="/delete?id={{.ID}}">
-            <button class="text-red-500">Delete</button>
+            <button class="text-red-500 cursor-pointer">Delete</button>
           </form>
         </div>
         {{end}}

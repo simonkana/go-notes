@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "concurrently \"npx @tailwindcss/cli -i ./web/static/css/input.css -o ./web/static/css/main.css --watch\" \"air\""
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.8",
+    "tailwindcss": "^4.1.8"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

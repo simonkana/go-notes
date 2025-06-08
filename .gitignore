@@ -1,2 +1,4 @@
 .env
 notes.db
+node_modules
+tmp

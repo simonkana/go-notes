@@ -25,6 +25,7 @@ func NewHandler(q *db.Queries) http.Handler {
 	mux.HandleFunc("/", h.index)
 	mux.HandleFunc("/create", h.create)
 	mux.HandleFunc("/delete", h.delete)
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/static"))))
 	return mux
 }
 
