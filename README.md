@@ -9,9 +9,6 @@ To run the project:
 git clone https://github.com/simonkana/go-notes
 cd go-notes
 
-# Download Go dependencies
-go get .
-
 # Create the SQLite database
 touch notes.db
 
