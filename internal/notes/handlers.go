@@ -30,7 +30,18 @@ func NewHandler(q *db.Queries) http.Handler {
 
 func (h *handler) index(w http.ResponseWriter, r *http.Request) {
 	notes, _ := h.q.ListNotes(r.Context())
-	h.tmpl.ExecuteTemplate(w, "index.html", notes)
+	data := struct {
+		Errors  map[string]string
+		Title   string
+		Content string
+		Notes   []db.Note
+	}{
+		Errors:  nil,
+		Title:   "",
+		Content: "",
+		Notes:   notes,
+	}
+	h.tmpl.ExecuteTemplate(w, "index.html", data)
 }
 
 func (h *handler) create(w http.ResponseWriter, r *http.Request) {
@@ -40,6 +51,32 @@ func (h *handler) create(w http.ResponseWriter, r *http.Request) {
 	}
 	title := r.FormValue("title")
 	content := r.FormValue("content")
+
+	errs := map[string]string{}
+	if title == "" {
+		errs["title"] = "Title is required."
+	}
+	if content == "" {
+		errs["content"] = "Content is required."
+	}
+
+	if len(errs) > 0 {
+		notes, _ := h.q.ListNotes(r.Context())
+		data := struct {
+			Errors  map[string]string
+			Title   string
+			Content string
+			Notes   []db.Note
+		}{
+			Errors:  errs,
+			Title:   title,
+			Content: content,
+			Notes:   notes,
+		}
+		h.tmpl.ExecuteTemplate(w, "index.html", data)
+		return
+	}
+
 	h.q.CreateNote(r.Context(), db.CreateNoteParams{Title: title, Content: content})
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
