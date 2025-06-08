@@ -25,8 +25,6 @@ Dependencies:
 
   - Go (you can check if installed with the `go version` command): `brew install go`
 
-<br/>
-
 - development:
 
   - Air for hot-reloading: `go install github.com/air-verse/air@latest`
